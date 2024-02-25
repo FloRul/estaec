@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-estaec-dev-141125-authRole",
+      "UnauthRoleArn": "arn:aws:iam::446872271111:role/amplify-estaec-dev-141125-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::446872271111:role/amplify-estaec-dev-141125-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-estaec-dev-141125-deployment",
+      "UnauthRoleName": "amplify-estaec-dev-141125-unauthRole",
+      "StackName": "amplify-estaec-dev-141125",
+      "StackId": "arn:aws:cloudformation:us-east-1:446872271111:stack/amplify-estaec-dev-141125/2e7fac70-ccff-11ee-8978-0e4c19dbed17",
+      "AmplifyAppId": "dzvlbt4u9aktj"
+    },
+    "categories": {
+      "auth": {
+        "estaec814cb7e6": {}
+      }
+    }
+  }
+}
