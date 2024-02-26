@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "deploy" {
   bucket = "estaec-deployment"
 }
 
-resource "aws_s3_bucket_public_access_block" "example" {
+resource "aws_s3_bucket_public_access_block" "this" {
   bucket = aws_s3_bucket.deploy.id
 
   block_public_acls       = false
@@ -37,6 +37,7 @@ resource "aws_s3_bucket_public_access_block" "example" {
 }
 
 resource "aws_s3_bucket_policy" "dev_bucket_policy" {
+  depends_on = [ aws_s3_bucket_public_access_block.this ]
   bucket = aws_s3_bucket.deploy.id
   policy = data.aws_iam_policy_document.allow_public_read_of_deployment_dev_folder.json
 }
