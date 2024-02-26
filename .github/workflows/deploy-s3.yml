@@ -45,7 +45,6 @@ jobs:
           cd build/web
           # Replace <base href="/"> with <base href="./">
           sed -i 's/<base href="\/">/<base href=".\/">/' index.html
-        working-directory: ./client
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         env:
