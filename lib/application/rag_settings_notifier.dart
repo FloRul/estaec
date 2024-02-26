@@ -13,7 +13,7 @@ class RagSettingsNotifier extends _$RagSettingsNotifier {
   }
 
   set collectionName(String collectionName) => state = AsyncValue.data(state.value!.copyWith(collectionName: collectionName));
-  set sessionId(String sessionId) => state = AsyncValue.data(state.value!.copyWith(sessionId: sessionId));
+  set sessionId(String? sessionId) => state = AsyncValue.data(state.value!.copyWith(sessionId: sessionId));
   set sourceType(SourceType sourceType) => state = AsyncValue.data(state.value!.copyWith(sourceType: sourceType));
   
   Future<List<String>> _fetchAvailableCollections() async {
