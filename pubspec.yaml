@@ -1,5 +1,5 @@
 name: estaec
-description: A new Flutter project.
+description: Client d'Estaec
 
 publish_to: "none"
 
@@ -46,4 +46,4 @@ flutter:
   uses-material-design: true
 
 assets:
-    - assets/images/logo.svg
+  - assets/images/logo.svg
