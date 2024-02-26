@@ -3,11 +3,37 @@ name: Deploy to AWS S3
 on:
   push:
     branches:
-      - xxxxx
+      - main
 
 jobs:
-  deploy:
-    if: github.event_name == 'push'
+  deploy-infra:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: ${{ vars.TF_ACTIONS_WORKING_DIR }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -no-color -upgrade
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Apply
+        run: |
+          terraform apply -auto-approve -no-color -input=false
+
+  deploy-client:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -16,14 +42,11 @@ jobs:
         with:
           channel: "stable"
       - run: flutter --version
-        working-directory: ./client
       - name: Install Dependencies
         run: flutter pub get
-        working-directory: ./client
 
       - name: Build Web App
         run: flutter build web --web-renderer html --release
-        working-directory: ./client
 
       - name: Modify Index HTML
         run: |
@@ -40,6 +63,6 @@ jobs:
           AWS_S3_BUCKET: ${{ vars.DEPLOYMENT_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "us-west-2" # optional: defaults to us-east-1
-          SOURCE_DIR: "./client/build/web"
+          AWS_REGION: "us-east-1"
+          SOURCE_DIR: "./build/web"
           DEST_DIR: "deployment/dev/"
