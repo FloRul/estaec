@@ -14,7 +14,7 @@ class SidebarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SidebarX(
       headerDivider: const Divider(),
-      headerBuilder: (_, __) => const Text('Applications', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      headerBuilder: (_, __) => const Text('Menu', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       showToggleButton: false,
       extendedTheme: const SidebarXTheme(
         itemTextPadding: EdgeInsets.all(8),
