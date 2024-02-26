@@ -1,11 +1,11 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
 import 'package:estaec/application/documents_provider.dart';
 import 'package:estaec/presentation/chat_view.dart';
 import 'package:estaec/presentation/common/elevated_card.dart';
 import 'package:estaec/presentation/rag_settings/rag_settings_view.dart';
 import 'package:estaec/presentation/retrieved_document_view.dart';
 import 'package:estaec/presentation/sidebar_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -40,12 +40,12 @@ class _HomeState extends ConsumerState<HomePage> {
                     child: Column(
                       children: [
                         Text(
-                          'Bienvenue sur le portail Levio GenAI',
+                          "Bienvenue sur le client d'évaluation ESTA",
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'Vous pouvez maintenant questionner vos données',
+                          'Vous pouvez maintenant questionner une collection de données et obtenir les documents récupérés.',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         Expanded(

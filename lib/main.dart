@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         switch (state.currentStep) {
           case AuthenticatorStep.signIn:
             return Scaffold(
-              appBar: AppBar(title: const Text('Portail genAI Levio')),
+              appBar: AppBar(title: const Text('ESTAEC - Connexion')),
               body: Center(
                 child: SizedBox(
                   width: 400,
