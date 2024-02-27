@@ -26,7 +26,7 @@ class ElevatedCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
-              elevation: 10,
+              elevation: 2,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: child,

@@ -46,6 +46,7 @@ class ChatStateNotifier extends _$ChatStateNotifier {
           'collectionName': ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
           if (ref.read(ragSettingsNotifierProvider).value?.sessionId != null)
             'sessionId': ref.read(ragSettingsNotifierProvider).value!.sessionId,
+          'source': ref.read(ragSettingsNotifierProvider).value?.sourceType.toString().split('.').last,
         },
       );
       return res.data as Map<String, dynamic>;
