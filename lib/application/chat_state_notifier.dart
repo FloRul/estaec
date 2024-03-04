@@ -71,6 +71,7 @@ class ChatStateNotifier extends _$ChatStateNotifier {
             )
             .toList()
             .cast<Document>(),
+        finalPrompt: completionRequest['final_prompt'],
       );
       var lastMessage = state.messages.last;
       final prefs = await SharedPreferences.getInstance();

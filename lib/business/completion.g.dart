@@ -12,10 +12,12 @@ _$CompletionImpl _$$CompletionImplFromJson(Map<String, dynamic> json) =>
       documents: (json['documents'] as List<dynamic>)
           .map((e) => Document.fromJson(e as Map<String, dynamic>))
           .toList(),
+      finalPrompt: json['finalPrompt'] as String?,
     );
 
 Map<String, dynamic> _$$CompletionImplToJson(_$CompletionImpl instance) =>
     <String, dynamic>{
       'text': instance.text,
       'documents': instance.documents,
+      'finalPrompt': instance.finalPrompt,
     };

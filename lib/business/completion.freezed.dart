@@ -22,6 +22,7 @@ Completion _$CompletionFromJson(Map<String, dynamic> json) {
 mixin _$Completion {
   String get text => throw _privateConstructorUsedError;
   List<Document> get documents => throw _privateConstructorUsedError;
+  String? get finalPrompt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $CompletionCopyWith<$Res> {
           Completion value, $Res Function(Completion) then) =
       _$CompletionCopyWithImpl<$Res, Completion>;
   @useResult
-  $Res call({String text, List<Document> documents});
+  $Res call({String text, List<Document> documents, String? finalPrompt});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$CompletionCopyWithImpl<$Res, $Val extends Completion>
   $Res call({
     Object? text = null,
     Object? documents = null,
+    Object? finalPrompt = freezed,
   }) {
     return _then(_value.copyWith(
       text: null == text
@@ -63,6 +65,10 @@ class _$CompletionCopyWithImpl<$Res, $Val extends Completion>
           ? _value.documents
           : documents // ignore: cast_nullable_to_non_nullable
               as List<Document>,
+      finalPrompt: freezed == finalPrompt
+          ? _value.finalPrompt
+          : finalPrompt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +81,7 @@ abstract class _$$CompletionImplCopyWith<$Res>
       __$$CompletionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, List<Document> documents});
+  $Res call({String text, List<Document> documents, String? finalPrompt});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$CompletionImplCopyWithImpl<$Res>
   $Res call({
     Object? text = null,
     Object? documents = null,
+    Object? finalPrompt = freezed,
   }) {
     return _then(_$CompletionImpl(
       text: null == text
@@ -101,6 +108,10 @@ class __$$CompletionImplCopyWithImpl<$Res>
           ? _value._documents
           : documents // ignore: cast_nullable_to_non_nullable
               as List<Document>,
+      finalPrompt: freezed == finalPrompt
+          ? _value.finalPrompt
+          : finalPrompt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -109,7 +120,9 @@ class __$$CompletionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CompletionImpl implements _Completion {
   const _$CompletionImpl(
-      {required this.text, required final List<Document> documents})
+      {required this.text,
+      required final List<Document> documents,
+      required this.finalPrompt})
       : _documents = documents;
 
   factory _$CompletionImpl.fromJson(Map<String, dynamic> json) =>
@@ -126,8 +139,11 @@ class _$CompletionImpl implements _Completion {
   }
 
   @override
+  final String? finalPrompt;
+
+  @override
   String toString() {
-    return 'Completion(text: $text, documents: $documents)';
+    return 'Completion(text: $text, documents: $documents, finalPrompt: $finalPrompt)';
   }
 
   @override
@@ -137,13 +153,15 @@ class _$CompletionImpl implements _Completion {
             other is _$CompletionImpl &&
             (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality()
-                .equals(other._documents, _documents));
+                .equals(other._documents, _documents) &&
+            (identical(other.finalPrompt, finalPrompt) ||
+                other.finalPrompt == finalPrompt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, text, const DeepCollectionEquality().hash(_documents));
+  int get hashCode => Object.hash(runtimeType, text,
+      const DeepCollectionEquality().hash(_documents), finalPrompt);
 
   @JsonKey(ignore: true)
   @override
@@ -162,7 +180,8 @@ class _$CompletionImpl implements _Completion {
 abstract class _Completion implements Completion {
   const factory _Completion(
       {required final String text,
-      required final List<Document> documents}) = _$CompletionImpl;
+      required final List<Document> documents,
+      required final String? finalPrompt}) = _$CompletionImpl;
 
   factory _Completion.fromJson(Map<String, dynamic> json) =
       _$CompletionImpl.fromJson;
@@ -171,6 +190,8 @@ abstract class _Completion implements Completion {
   String get text;
   @override
   List<Document> get documents;
+  @override
+  String? get finalPrompt;
   @override
   @JsonKey(ignore: true)
   _$$CompletionImplCopyWith<_$CompletionImpl> get copyWith =>

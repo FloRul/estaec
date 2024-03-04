@@ -1,8 +1,8 @@
 import 'package:estaec/application/documents_provider.dart';
 import 'package:estaec/presentation/chat_view.dart';
 import 'package:estaec/presentation/common/elevated_card.dart';
-import 'package:estaec/presentation/rag_settings/rag_settings_view.dart';
-import 'package:estaec/presentation/retrieved_document_view.dart';
+import 'package:estaec/presentation/rigth_panel/rag_settings/rag_settings_view.dart';
+import 'package:estaec/presentation/rigth_panel/retrieved_document_view.dart';
 import 'package:estaec/presentation/sidebar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

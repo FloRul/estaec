@@ -1,6 +1,6 @@
-import 'package:estaec/presentation/rag_settings/collection_dropdown.dart';
-import 'package:estaec/presentation/rag_settings/inference_settings.dart';
-import 'package:estaec/presentation/rag_settings/session_settings.dart';
+import 'package:estaec/presentation/rigth_panel/rag_settings/collection_dropdown.dart';
+import 'package:estaec/presentation/rigth_panel/rag_settings/inference_settings.dart';
+import 'package:estaec/presentation/rigth_panel/rag_settings/session_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
