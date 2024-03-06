@@ -36,13 +36,13 @@ resource "aws_s3_bucket_public_access_block" "this" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "dev_bucket_policy" {
+resource "aws_s3_bucket_policy" "bucket_policy" {
   depends_on = [aws_s3_bucket_public_access_block.this]
   bucket     = aws_s3_bucket.deploy.id
-  policy     = data.aws_iam_policy_document.allow_public_read_of_deployment_dev_folder.json
+  policy     = data.aws_iam_policy_document.allow_public_read_of_deployment_folder.json
 }
 
-data "aws_iam_policy_document" "allow_public_read_of_deployment_dev_folder" {
+data "aws_iam_policy_document" "allow_public_read_of_deployment_folder" {
   statement {
     principals {
       type        = "AWS"
