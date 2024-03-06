@@ -9,17 +9,19 @@ class PromptInspector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var spans = prompt?.split(RegExp(r'(<.*>)')) ?? [];
+    var spans = prompt?.split('') ?? [];
 
-    return RichText(
-      text: TextSpan(
-        children: spans
-            .map(
-              (span) => TextSpan(
-                text: span,
-              ),
-            )
-            .toList(),
+    return SingleChildScrollView(
+      child: RichText(
+        text: TextSpan(
+          children: spans
+              .map(
+                (span) => TextSpan(
+                  text: span,
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }
