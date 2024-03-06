@@ -19,7 +19,10 @@ class _SessionSetingState extends ConsumerState<SessionSetting> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Activer l'historique"),
+        const Text(
+          "Activer l'historique",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

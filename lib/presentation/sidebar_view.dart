@@ -14,7 +14,13 @@ class SidebarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SidebarX(
       headerDivider: const Divider(),
-      headerBuilder: (_, __) => const Text('Menu', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      headerBuilder: (_, __) => IconButton(
+        icon: const Icon(
+          Icons.logout,
+          textDirection: TextDirection.rtl,
+        ),
+        onPressed: () => Amplify.Auth.signOut(),
+      ),
       showToggleButton: false,
       extendedTheme: const SidebarXTheme(
         itemTextPadding: EdgeInsets.all(8),
@@ -23,12 +29,8 @@ class SidebarView extends StatelessWidget {
       ),
       controller: _controller,
       items: const [
-        // SidebarXItem(icon: Icons.home, label: 'Accueil'),
         SidebarXItem(icon: Icons.chat_bubble, label: 'Questionnez vos données'),
-      ],
-      footerItems: [
-        // const SidebarXItem(icon: Icons.settings, label: 'Paramètres'),
-        SidebarXItem(icon: Icons.logout, label: 'Se déconnecter', onTap: () => Amplify.Auth.signOut()),
+        SidebarXItem(icon: Icons.settings, label: 'Paramètres'),
       ],
     );
   }

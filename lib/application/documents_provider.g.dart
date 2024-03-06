@@ -6,7 +6,7 @@ part of 'documents_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$documentsGetterHash() => r'081e5cf870949b8c08451aea88b7e9ffb7d5b522';
+String _$completionGetterHash() => r'db82b939f2a09f3fa939a505a82f1ff7b1865279';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,39 +29,39 @@ class _SystemHash {
   }
 }
 
-abstract class _$DocumentsGetter
-    extends BuildlessAutoDisposeAsyncNotifier<List<Document>> {
-  late final String? messageId;
+abstract class _$CompletionGetter
+    extends BuildlessAutoDisposeAsyncNotifier<Completion?> {
+  late final String? completionId;
 
-  FutureOr<List<Document>> build(
-    String? messageId,
+  FutureOr<Completion?> build(
+    String? completionId,
   );
 }
 
-/// See also [DocumentsGetter].
-@ProviderFor(DocumentsGetter)
-const documentsGetterProvider = DocumentsGetterFamily();
+/// See also [CompletionGetter].
+@ProviderFor(CompletionGetter)
+const completionGetterProvider = CompletionGetterFamily();
 
-/// See also [DocumentsGetter].
-class DocumentsGetterFamily extends Family<AsyncValue<List<Document>>> {
-  /// See also [DocumentsGetter].
-  const DocumentsGetterFamily();
+/// See also [CompletionGetter].
+class CompletionGetterFamily extends Family<AsyncValue<Completion?>> {
+  /// See also [CompletionGetter].
+  const CompletionGetterFamily();
 
-  /// See also [DocumentsGetter].
-  DocumentsGetterProvider call(
-    String? messageId,
+  /// See also [CompletionGetter].
+  CompletionGetterProvider call(
+    String? completionId,
   ) {
-    return DocumentsGetterProvider(
-      messageId,
+    return CompletionGetterProvider(
+      completionId,
     );
   }
 
   @override
-  DocumentsGetterProvider getProviderOverride(
-    covariant DocumentsGetterProvider provider,
+  CompletionGetterProvider getProviderOverride(
+    covariant CompletionGetterProvider provider,
   ) {
     return call(
-      provider.messageId,
+      provider.completionId,
     );
   }
 
@@ -77,99 +77,99 @@ class DocumentsGetterFamily extends Family<AsyncValue<List<Document>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'documentsGetterProvider';
+  String? get name => r'completionGetterProvider';
 }
 
-/// See also [DocumentsGetter].
-class DocumentsGetterProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    DocumentsGetter, List<Document>> {
-  /// See also [DocumentsGetter].
-  DocumentsGetterProvider(
-    String? messageId,
+/// See also [CompletionGetter].
+class CompletionGetterProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    CompletionGetter, Completion?> {
+  /// See also [CompletionGetter].
+  CompletionGetterProvider(
+    String? completionId,
   ) : this._internal(
-          () => DocumentsGetter()..messageId = messageId,
-          from: documentsGetterProvider,
-          name: r'documentsGetterProvider',
+          () => CompletionGetter()..completionId = completionId,
+          from: completionGetterProvider,
+          name: r'completionGetterProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$documentsGetterHash,
-          dependencies: DocumentsGetterFamily._dependencies,
+                  : _$completionGetterHash,
+          dependencies: CompletionGetterFamily._dependencies,
           allTransitiveDependencies:
-              DocumentsGetterFamily._allTransitiveDependencies,
-          messageId: messageId,
+              CompletionGetterFamily._allTransitiveDependencies,
+          completionId: completionId,
         );
 
-  DocumentsGetterProvider._internal(
+  CompletionGetterProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.messageId,
+    required this.completionId,
   }) : super.internal();
 
-  final String? messageId;
+  final String? completionId;
 
   @override
-  FutureOr<List<Document>> runNotifierBuild(
-    covariant DocumentsGetter notifier,
+  FutureOr<Completion?> runNotifierBuild(
+    covariant CompletionGetter notifier,
   ) {
     return notifier.build(
-      messageId,
+      completionId,
     );
   }
 
   @override
-  Override overrideWith(DocumentsGetter Function() create) {
+  Override overrideWith(CompletionGetter Function() create) {
     return ProviderOverride(
       origin: this,
-      override: DocumentsGetterProvider._internal(
-        () => create()..messageId = messageId,
+      override: CompletionGetterProvider._internal(
+        () => create()..completionId = completionId,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        messageId: messageId,
+        completionId: completionId,
       ),
     );
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<DocumentsGetter, List<Document>>
+  AutoDisposeAsyncNotifierProviderElement<CompletionGetter, Completion?>
       createElement() {
-    return _DocumentsGetterProviderElement(this);
+    return _CompletionGetterProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is DocumentsGetterProvider && other.messageId == messageId;
+    return other is CompletionGetterProvider &&
+        other.completionId == completionId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, messageId.hashCode);
+    hash = _SystemHash.combine(hash, completionId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin DocumentsGetterRef
-    on AutoDisposeAsyncNotifierProviderRef<List<Document>> {
-  /// The parameter `messageId` of this provider.
-  String? get messageId;
+mixin CompletionGetterRef on AutoDisposeAsyncNotifierProviderRef<Completion?> {
+  /// The parameter `completionId` of this provider.
+  String? get completionId;
 }
 
-class _DocumentsGetterProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<DocumentsGetter,
-        List<Document>> with DocumentsGetterRef {
-  _DocumentsGetterProviderElement(super.provider);
+class _CompletionGetterProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<CompletionGetter,
+        Completion?> with CompletionGetterRef {
+  _CompletionGetterProviderElement(super.provider);
 
   @override
-  String? get messageId => (origin as DocumentsGetterProvider).messageId;
+  String? get completionId => (origin as CompletionGetterProvider).completionId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,8 +1,9 @@
 import 'package:estaec/application/documents_provider.dart';
 import 'package:estaec/presentation/chat_view.dart';
 import 'package:estaec/presentation/common/elevated_card.dart';
-import 'package:estaec/presentation/rigth_panel/rag_settings/rag_settings_view.dart';
-import 'package:estaec/presentation/rigth_panel/retrieved_document_view.dart';
+import 'package:estaec/presentation/rag_settings/prompt_inspector.dart';
+import 'package:estaec/presentation/rag_settings/rag_settings_view.dart';
+import 'package:estaec/presentation/retrieved_document_view.dart';
 import 'package:estaec/presentation/sidebar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,11 +18,27 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomeState extends ConsumerState<HomePage> {
   late SidebarXController _controller;
+  late PageController _pageController;
   String? _selectedMessageId;
   @override
   void initState() {
     super.initState();
     _controller = SidebarXController(selectedIndex: 0, extended: false);
+    _pageController = PageController(initialPage: _controller.selectedIndex);
+    _controller.addListener(() {
+      _pageController.animateToPage(
+        _controller.selectedIndex,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.decelerate,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+    _pageController.dispose();
   }
 
   @override
@@ -36,54 +53,48 @@ class _HomeState extends ConsumerState<HomePage> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 2,
-                    child: Column(
+                    child: PageView(
+                      scrollDirection: Axis.vertical,
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        _controller.selectIndex(index);
+                      },
                       children: [
-                        Text(
-                          "Bienvenue sur le client d'évaluation ESTA",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          'Vous pouvez maintenant questionner une collection de données et obtenir les documents récupérés.',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        Expanded(
-                          child: ElevatedCard(
-                            child: ChatView(
-                              onMessageSelected: (messageId) => setState(() => _selectedMessageId = messageId),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ChatView(
+                            onMessageSelected: (messageId) => setState(
+                              () => _selectedMessageId = messageId,
                             ),
                           ),
                         ),
+                        const RagSettingsView(),
                       ],
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const IntrinsicHeight(
-                          child: ElevatedCard(
-                            title: 'Paramètres',
-                            child: RagSettingsView(),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: ElevatedCard(
-                            title: 'Documents récupérés',
-                            child: ref.watch(documentsGetterProvider(_selectedMessageId)).when(
-                                data: (documents) => RetrievedDocumentView(
-                                      documents: documents,
+                    child: ref.watch(completionGetterProvider(_selectedMessageId)).when(
+                        data: (c) => Column(
+                              children: [
+                                Expanded(
+                                  child: ElevatedCard(
+                                    title: 'Inspecteur de prompt',
+                                    child: PromptInspector(prompt: c?.finalPrompt),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ElevatedCard(
+                                    title: 'Documents',
+                                    child: RetrievedDocumentView(
+                                      documents: c?.documents ?? [],
                                     ),
-                                loading: () => const Center(child: CircularProgressIndicator()),
-                                error: (error, stackTrace) => Center(child: Text(error.toString()))),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                                  ),
+                                ),
+                              ],
+                            ),
+                        loading: () => const Center(child: CircularProgressIndicator()),
+                        error: (error, stackTrace) => Center(child: Text(error.toString()))),
+                  ),
                 ],
               ),
             ),

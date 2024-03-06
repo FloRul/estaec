@@ -1,22 +1,21 @@
 import 'dart:convert';
 
 import 'package:estaec/business/completion.dart';
-import 'package:estaec/business/document.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'documents_provider.g.dart';
 
 @riverpod
-class DocumentsGetter extends _$DocumentsGetter {
+class CompletionGetter extends _$CompletionGetter {
   @override
-  FutureOr<List<Document>> build(String? messageId) async {
+  FutureOr<Completion?> build(String? completionId) async {
     try {
-      if (messageId == null || messageId.isEmpty) return [];
+      if (completionId == null || completionId.isEmpty) return null;
       final prefs = await SharedPreferences.getInstance();
-      var res = prefs.getString(messageId);
-      if (res == null) return [];
+      var res = prefs.getString(completionId);
+      if (res == null) return null;
       var completion = Completion.fromJson(jsonDecode(res));
-      return completion.documents;
+      return completion;
     } catch (e) {
       throw Exception('Error while fetching documents: $e');
     }
