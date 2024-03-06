@@ -13,8 +13,8 @@ class PromptInspector extends StatelessWidget {
     var quoteReg = RegExp(r'<quotes>(.*?)<\quotes>', dotAll: true);
     var historyReg = RegExp(r'<history>(.*?)<\history>', dotAll: true);
 
-    String? quotes = quoteReg.allMatches(prompt ?? '').map((e) => e.group(1)).first;
-    String? history = historyReg.allMatches(prompt ?? '').map((e) => e.group(1)).first;
+    // String? quotes = quoteReg.allMatches(prompt ?? '').map((e) => e.group(1)).first;
+    // String? history = historyReg.allMatches(prompt ?? '').map((e) => e.group(1)).first;
 
     return SingleChildScrollView(
       child: RichText(
