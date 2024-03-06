@@ -25,7 +25,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       - name: Terraform Apply
         run: |
-          terraform apply -auto-approve -no-color -input=false
+          terraform apply -auto-approve -no-color -input=false -var-file=staging.tfvars
   
   deploy-client:
     needs: deploy-infra
@@ -55,4 +55,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
           SOURCE_DIR: ./build/web
-          DEST_DIR: deployment/dev/
+          DEST_DIR: deployment/staging/

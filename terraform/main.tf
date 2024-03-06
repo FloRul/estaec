@@ -17,14 +17,14 @@ provider "aws" {
   default_tags {
     tags = {
       Terraform   = true
-      Environment = "dev"
+      Environment = var.environment
       Project     = "estaec"
     }
   }
 }
 
 resource "aws_s3_bucket" "deploy" {
-  bucket = "estaec-deployment"
+  bucket = "estaec-deployment-${var.environment}"
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -37,9 +37,9 @@ resource "aws_s3_bucket_public_access_block" "this" {
 }
 
 resource "aws_s3_bucket_policy" "dev_bucket_policy" {
-  depends_on = [ aws_s3_bucket_public_access_block.this ]
-  bucket = aws_s3_bucket.deploy.id
-  policy = data.aws_iam_policy_document.allow_public_read_of_deployment_dev_folder.json
+  depends_on = [aws_s3_bucket_public_access_block.this]
+  bucket     = aws_s3_bucket.deploy.id
+  policy     = data.aws_iam_policy_document.allow_public_read_of_deployment_dev_folder.json
 }
 
 data "aws_iam_policy_document" "allow_public_read_of_deployment_dev_folder" {
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "allow_public_read_of_deployment_dev_folder" {
     sid    = "AllowPublicReadOfDeploymentFolders"
     effect = "Allow"
     resources = [
-      "${aws_s3_bucket.deploy.arn}/deployment/dev/*"
+      "${aws_s3_bucket.deploy.arn}/deployment/${var.environment}/*"
     ]
 
     actions = [
@@ -88,7 +88,7 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
       key_prefix_equals = "*/*"
     }
     redirect {
-      replace_key_prefix_with = "deployment/dev/"
+      replace_key_prefix_with = "deployment/${var.environment}/"
     }
   }
 }
