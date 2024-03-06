@@ -54,6 +54,7 @@ class _HomeState extends ConsumerState<HomePage> {
                 children: [
                   Expanded(
                     child: PageView(
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       controller: _pageController,
                       onPageChanged: (index) {
