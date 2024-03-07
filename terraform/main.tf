@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "levio-aws-demo-fev-terraform"
-    key    = "states/estaec-staging.tfstate"
+    key    = "states/estaec-dev.tfstate"
     region = "us-west-2"
   }
   required_providers {
