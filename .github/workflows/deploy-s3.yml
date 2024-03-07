@@ -1,10 +1,10 @@
 name: Deploy to AWS S3
-'on':
+on:
   push:
-    branches:
-      - main
+
 jobs:
   deploy-infra:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,14 +17,14 @@ jobs:
       - name: Terraform Init
         id: init
         run: |
-          cd ${{ vars.TF_ACTIONS_WORKING_DIR }}
+          cd ./terraform
           terraform init -no-color -upgrade
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
       - name: Terraform Apply
         run: |
-          cd ${{ vars.TF_ACTIONS_WORKING_DIR }}
-          terraform apply -auto-approve -no-color -var-file="staging.tfvars" | tee output.txt
+          cd ./terraform
+          terraform apply -auto-approve -no-color -var="environment=${GITHUB_REF##*/}" | tee output.txt
           BUCKET_NAME=$(cat output.txt | grep -oP '(?<=bucket = ).*')
           echo "DEPLOYMENT_BUCKET=$BUCKET_NAME" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
@@ -49,4 +49,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
           SOURCE_DIR: ./build/web
-          DEST_DIR: deployment/staging/
+          DEST_DIR: deployment/
