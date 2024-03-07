@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "allow_public_read_of_deployment_folder" {
     sid    = "AllowPublicReadOfDeploymentFolders"
     effect = "Allow"
     resources = [
-      "${aws_s3_bucket.deploy.arn}/deployment/${var.environment}/*"
+      "${aws_s3_bucket.deploy.arn}/deployment/*"
     ]
 
     actions = [
@@ -88,7 +88,7 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
       key_prefix_equals = "*/*"
     }
     redirect {
-      replace_key_prefix_with = "deployment/${var.environment}/"
+      replace_key_prefix_with = "deployment/"
     }
   }
 }
