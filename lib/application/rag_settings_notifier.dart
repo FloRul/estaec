@@ -12,16 +12,18 @@ class RagSettingsNotifier extends _$RagSettingsNotifier {
     return RagSettingsState.initial(availableCollections: availableCollections);
   }
 
-  set collectionName(String collectionName) => state = AsyncValue.data(state.value!.copyWith(collectionName: collectionName));
+  set collectionName(String collectionName) =>
+      state = AsyncValue.data(state.value!.copyWith(collectionName: collectionName));
   set sessionId(String? sessionId) => state = AsyncValue.data(state.value!.copyWith(sessionId: sessionId));
   set sourceType(SourceType sourceType) => state = AsyncValue.data(state.value!.copyWith(sourceType: sourceType));
-  
+
   Future<List<String>> _fetchAvailableCollections() async {
-    try {
-      var res = await ref.read(dioProvider).get('/collections');
-      return ((res.data as Map<String, dynamic>)['collections'] as List).map((e) => e as String).toList();
-    } on DioException catch (e) {
-      throw Exception(e.message);
-    }
+    return [];
+    // try {
+    //   var res = await ref.read(dioProvider).get('/collections');
+    //   return ((res.data as Map<String, dynamic>)['collections'] as List).map((e) => e as String).toList();
+    // } on DioException catch (e) {
+    //   throw Exception(e.message);
+    // }
   }
 }

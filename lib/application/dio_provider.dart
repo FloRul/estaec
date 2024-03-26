@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';
 
-const apiUri = 'https://d09uj3e9kh.execute-api.us-east-1.amazonaws.com/dev';
+const apiUri = 'https://yihxn1ubcd.execute-api.us-east-1.amazonaws.com/dev';
 @riverpod
 Dio dio(DioRef ref) {
   var dio = Dio(
@@ -16,19 +16,19 @@ Dio dio(DioRef ref) {
       persistentConnection: false,
     ),
   );
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final authSession = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-        // TODO: careful to have thos headers match the cors config tin the api gateway
-        options.headers.addAll(
-          {
-            'Authorization': authSession.userPoolTokensResult.value.idToken.raw,
-          },
-        );
-        return handler.next(options);
-      },
-    ),
-  );
+  // dio.interceptors.add(
+  //   InterceptorsWrapper(
+  //     onRequest: (options, handler) async {
+  //       final authSession = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+  //       // TODO: careful to have thos headers match the cors config tin the api gateway
+  //       options.headers.addAll(
+  //         {
+  //           'Authorization': authSession.userPoolTokensResult.value.idToken.raw,
+  //         },
+  //       );
+  //       return handler.next(options);
+  //     },
+  //   ),
+  // );
   return dio;
 }
