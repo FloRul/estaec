@@ -32,7 +32,7 @@ class TemplatesStateNotifier extends _$TemplatesStateNotifier {
 
   Future<void> deleteTemplate(String templateId) async {
     // Delete the template from the API
-    await ref.read(dioProvider).delete('/templates/$templateId}');
+    await ref.read(dioProvider).delete('/templates/$templateId');
     await _refresh();
   }
 
