@@ -12,22 +12,23 @@ class RagSettingsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const ElevatedCard(
+    return ElevatedCard(
       title: 'Paramètres',
       child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TemplateEditor(),
-              SizedBox(height: 20),
-              SessionSetting(),
-              SizedBox(height: 20),
-              InferenceSettings(),
-              SizedBox(height: 20),
-            ],
-          ),
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 3,
+              child: TemplateSettings(),
+            ),
+            const SizedBox(height: 20),
+            const Expanded(child: SessionSetting()),
+            const SizedBox(height: 20),
+            const Expanded(child: InferenceSettings()),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );

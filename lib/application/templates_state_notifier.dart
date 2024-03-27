@@ -23,13 +23,35 @@ class TemplatesStateNotifier extends _$TemplatesStateNotifier {
     }
   }
 
-
   Future<void> deleteTemplate(String templateId) async {
     state = await AsyncValue.guard(() async {
       // Delete the template from the API
       final templates = await _fetchTemplates();
       var filteredTemplates = templates.where((template) => template.id != templateId).toList();
-    return TemplateManagementState.initial(templates: filteredTemplates);
+      return TemplateManagementState.initial(templates: filteredTemplates);
+    });
+  }
+
+  Future<void> createTemplate(String name, String text) async {
+    state = await AsyncValue.guard(() async {
+      // Create the template in the API
+      final templates = await _fetchTemplates();
+      var newTemplate = Template(id: 'new', name: name, text: text, tags: {});
+      return TemplateManagementState.initial(templates: [...templates, newTemplate]);
+    });
+  }
+
+  Future<void> updateTemplate(String templateId, String name, String text) async {
+    state = await AsyncValue.guard(() async {
+      // Update the template in the API
+      final templates = await _fetchTemplates();
+      var updatedTemplates = templates.map((template) {
+        if (template.id == templateId) {
+          return template.copyWith(name: name, text: text);
+        }
+        return template;
+      }).toList();
+      return TemplateManagementState.initial(templates: updatedTemplates);
     });
   }
 }
