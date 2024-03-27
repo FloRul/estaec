@@ -16,7 +16,7 @@ class TemplateManagementState with _$TemplateManagementState {
   }) =>
       TemplateManagementState(
         templates: templates ?? [],
-        selectedTemplateId: null,
+        selectedTemplateId: templates?.first.id,
       );
 
   factory TemplateManagementState.fromJson(Map<String, Object?> json) => _$TemplateManagementStateFromJson(json);
