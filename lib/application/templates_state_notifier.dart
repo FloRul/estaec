@@ -49,17 +49,22 @@ class TemplatesStateNotifier extends _$TemplatesStateNotifier {
     await _refresh();
   }
 
-  Future<void> updateTemplate(String templateId, String name, String text) async {
+  Future<void> updateTemplate(String templateId, String name, String text, String creationDate) async {
     // Update the template in the API
     await ref.read(dioProvider).post(
       '/templates',
       data: {
         'id': templateId,
         'template_name': name,
+        'creation_date': creationDate,
         'text': text,
         'tags': {},
       },
     );
     await _refresh();
+  }
+
+  void selectTemplate(String templateId) {
+    state = AsyncValue.data(state.value!.copyWith(selectedTemplateId: templateId));
   }
 }

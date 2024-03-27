@@ -21,6 +21,8 @@ Template _$TemplateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Template {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'creation_date')
+  String? get creationDate => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   @JsonKey(name: 'template_name')
   String get templateName => throw _privateConstructorUsedError;
@@ -39,6 +41,7 @@ abstract class $TemplateCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      @JsonKey(name: 'creation_date') String? creationDate,
       String text,
       @JsonKey(name: 'template_name') String templateName,
       Map<String, String> tags});
@@ -58,6 +61,7 @@ class _$TemplateCopyWithImpl<$Res, $Val extends Template>
   @override
   $Res call({
     Object? id = null,
+    Object? creationDate = freezed,
     Object? text = null,
     Object? templateName = null,
     Object? tags = null,
@@ -67,6 +71,10 @@ class _$TemplateCopyWithImpl<$Res, $Val extends Template>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      creationDate: freezed == creationDate
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -93,6 +101,7 @@ abstract class _$$TemplateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      @JsonKey(name: 'creation_date') String? creationDate,
       String text,
       @JsonKey(name: 'template_name') String templateName,
       Map<String, String> tags});
@@ -110,6 +119,7 @@ class __$$TemplateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? creationDate = freezed,
     Object? text = null,
     Object? templateName = null,
     Object? tags = null,
@@ -119,6 +129,10 @@ class __$$TemplateImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      creationDate: freezed == creationDate
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -140,6 +154,7 @@ class __$$TemplateImplCopyWithImpl<$Res>
 class _$TemplateImpl implements _Template {
   const _$TemplateImpl(
       {required this.id,
+      @JsonKey(name: 'creation_date') this.creationDate,
       required this.text,
       @JsonKey(name: 'template_name') required this.templateName,
       required final Map<String, String> tags})
@@ -150,6 +165,9 @@ class _$TemplateImpl implements _Template {
 
   @override
   final String id;
+  @override
+  @JsonKey(name: 'creation_date')
+  final String? creationDate;
   @override
   final String text;
   @override
@@ -165,7 +183,7 @@ class _$TemplateImpl implements _Template {
 
   @override
   String toString() {
-    return 'Template(id: $id, text: $text, templateName: $templateName, tags: $tags)';
+    return 'Template(id: $id, creationDate: $creationDate, text: $text, templateName: $templateName, tags: $tags)';
   }
 
   @override
@@ -174,6 +192,8 @@ class _$TemplateImpl implements _Template {
         (other.runtimeType == runtimeType &&
             other is _$TemplateImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.creationDate, creationDate) ||
+                other.creationDate == creationDate) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.templateName, templateName) ||
                 other.templateName == templateName) &&
@@ -182,8 +202,8 @@ class _$TemplateImpl implements _Template {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, text, templateName,
-      const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(runtimeType, id, creationDate, text,
+      templateName, const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
@@ -202,6 +222,7 @@ class _$TemplateImpl implements _Template {
 abstract class _Template implements Template {
   const factory _Template(
       {required final String id,
+      @JsonKey(name: 'creation_date') final String? creationDate,
       required final String text,
       @JsonKey(name: 'template_name') required final String templateName,
       required final Map<String, String> tags}) = _$TemplateImpl;
@@ -211,6 +232,9 @@ abstract class _Template implements Template {
 
   @override
   String get id;
+  @override
+  @JsonKey(name: 'creation_date')
+  String? get creationDate;
   @override
   String get text;
   @override

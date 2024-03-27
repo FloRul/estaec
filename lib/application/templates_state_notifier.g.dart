@@ -7,7 +7,7 @@ part of 'templates_state_notifier.dart';
 // **************************************************************************
 
 String _$templatesStateNotifierHash() =>
-    r'e21a362e6e15a5352f3058936c340d2340679dbb';
+    r'e4daa0b685de352f77ee0f9feafab72a0c0c4ae2';
 
 /// See also [TemplatesStateNotifier].
 @ProviderFor(TemplatesStateNotifier)

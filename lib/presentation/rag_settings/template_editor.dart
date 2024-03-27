@@ -25,7 +25,7 @@ class TemplateSettings extends ConsumerWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TemplatesListView(navigatorKey: _navigatorKey),
-                  ElevatedButton(
+                  OutlinedButton(
                     onPressed: () {
                       // Open create template dialog
                       _navigatorKey.currentState!.push(
@@ -63,12 +63,12 @@ class TemplatesListView extends ConsumerStatefulWidget {
 }
 
 class _TemplatesListViewState extends ConsumerState<TemplatesListView> {
+  int selectedTemplateIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final templates = ref.watch(templatesStateNotifierProvider);
     var notifier = ref.read(templatesStateNotifierProvider.notifier);
-
-    int selectedTemplateIndex = 0;
 
     return SizedBox(
       height: 300,
@@ -78,18 +78,20 @@ class _TemplatesListViewState extends ConsumerState<TemplatesListView> {
           child: Center(child: CircularProgressIndicator()),
         ),
         error: (error, _) => Text('Error: $error'),
-        data: (data) => ListView.builder(
-          itemCount: data.templates.length,
-          itemBuilder: (context, index) {
-            final template = data.templates[index];
+        data: (data) => ListView(
+          children: data.templates.map((template) {
+            final index = data.templates.indexOf(template);
             return ListTile(
-              leading: Radio(
+              leading: Radio<int>(
                 value: index,
                 groupValue: selectedTemplateIndex,
-                onChanged: (value) {
-                  setState(() {
-                    selectedTemplateIndex = value!;
-                  });
+                onChanged: (int? value) {
+                  if (value != null) {
+                    setState(() {
+                      selectedTemplateIndex = value;
+                      ref.read(templatesStateNotifierProvider.notifier).selectTemplate(template.id);
+                    });
+                  }
                 },
               ),
               title: Text(template.templateName),
@@ -113,12 +115,12 @@ class _TemplatesListViewState extends ConsumerState<TemplatesListView> {
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete),
-                    onPressed: () async => notifier.deleteTemplate(template.id),
+                    onPressed: () async => await notifier.deleteTemplate(template.id),
                   ),
                 ],
               ),
             );
-          },
+          }).toList(),
         ),
       ),
     );
@@ -187,9 +189,8 @@ class EditTemplate extends HookConsumerWidget {
                           .read(templatesStateNotifierProvider.notifier)
                           .createTemplate(nameController.text, textController.text);
                     } else {
-                      await ref
-                          .read(templatesStateNotifierProvider.notifier)
-                          .updateTemplate(template!.id, nameController.text, textController.text);
+                      await ref.read(templatesStateNotifierProvider.notifier).updateTemplate(
+                          template!.id, nameController.text, textController.text, template!.creationDate!);
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Une erreur est survenue: $e')));

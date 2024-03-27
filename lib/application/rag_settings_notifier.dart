@@ -19,11 +19,11 @@ class RagSettingsNotifier extends _$RagSettingsNotifier {
 
   Future<List<String>> _fetchAvailableCollections() async {
     return [];
-    // try {
-    //   var res = await ref.read(dioProvider).get('/collections');
-    //   return ((res.data as Map<String, dynamic>)['collections'] as List).map((e) => e as String).toList();
-    // } on DioException catch (e) {
-    //   throw Exception(e.message);
-    // }
+    try {
+      var res = await ref.read(dioProvider).get('/collections');
+      return ((res.data as Map<String, dynamic>)['collections'] as List).map((e) => e as String).toList();
+    } on DioException catch (e) {
+      throw Exception(e.message);
+    }
   }
 }
