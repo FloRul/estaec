@@ -39,9 +39,9 @@ class ChatStateNotifier extends _$ChatStateNotifier {
 
   Future<Map<String, dynamic>> _fetchCompletion(String prompt) async {
     try {
-      var res = await ref.read(dioProvider).get(
+      var res = await ref.read(dioProvider).post(
         '/chat',
-        queryParameters: {
+        data: {
           'query': prompt,
           'collectionName': "esta-raw-text-storage-dev",
           'template_id': ref.watch(templatesStateNotifierProvider).value?.selectedTemplateId,
