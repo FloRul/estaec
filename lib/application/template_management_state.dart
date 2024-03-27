@@ -8,6 +8,7 @@ part 'template_management_state.g.dart';
 class TemplateManagementState with _$TemplateManagementState {
   const factory TemplateManagementState({
     required List<Template> templates,
+    required String? selectedTemplateId,
   }) = _TemplateManagementState;
 
   factory TemplateManagementState.initial({
@@ -15,6 +16,7 @@ class TemplateManagementState with _$TemplateManagementState {
   }) =>
       TemplateManagementState(
         templates: templates ?? [],
+        selectedTemplateId: null,
       );
 
   factory TemplateManagementState.fromJson(Map<String, Object?> json) => _$TemplateManagementStateFromJson(json);

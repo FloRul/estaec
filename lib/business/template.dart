@@ -1,5 +1,7 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore_for_file: invalid_annotation_target
 
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'template.freezed.dart';
 part 'template.g.dart';
 
@@ -8,7 +10,7 @@ class Template with _$Template {
   const factory Template({
     required String id,
     required String text,
-    required String name,
+    @JsonKey(name: 'template_name') required String templateName,
     required Map<String, String> tags,
   }) = _Template;
 

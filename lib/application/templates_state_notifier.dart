@@ -13,6 +13,13 @@ class TemplatesStateNotifier extends _$TemplatesStateNotifier {
     return TemplateManagementState.initial(templates: templates);
   }
 
+  Future<void> _refresh() async {
+    state = await AsyncValue.guard(() async {
+      var templates = await _fetchTemplates();
+      return TemplateManagementState.initial(templates: templates);
+    });
+  }
+
   Future<List<Template>> _fetchTemplates() async {
     try {
       var res = await ref.read(dioProvider).get('/templates');
@@ -24,34 +31,35 @@ class TemplatesStateNotifier extends _$TemplatesStateNotifier {
   }
 
   Future<void> deleteTemplate(String templateId) async {
-    state = await AsyncValue.guard(() async {
-      // Delete the template from the API
-      final templates = await _fetchTemplates();
-      var filteredTemplates = templates.where((template) => template.id != templateId).toList();
-      return TemplateManagementState.initial(templates: filteredTemplates);
-    });
+    // Delete the template from the API
+    await ref.read(dioProvider).delete('/templates/$templateId}');
+    await _refresh();
   }
 
   Future<void> createTemplate(String name, String text) async {
-    state = await AsyncValue.guard(() async {
-      // Create the template in the API
-      final templates = await _fetchTemplates();
-      var newTemplate = Template(id: 'new', name: name, text: text, tags: {});
-      return TemplateManagementState.initial(templates: [...templates, newTemplate]);
-    });
+    // Create the template in the API
+    await ref.read(dioProvider).post(
+      '/templates',
+      data: {
+        'template_name': name,
+        'text': text,
+        'tags': {},
+      },
+    );
+    await _refresh();
   }
 
   Future<void> updateTemplate(String templateId, String name, String text) async {
-    state = await AsyncValue.guard(() async {
-      // Update the template in the API
-      final templates = await _fetchTemplates();
-      var updatedTemplates = templates.map((template) {
-        if (template.id == templateId) {
-          return template.copyWith(name: name, text: text);
-        }
-        return template;
-      }).toList();
-      return TemplateManagementState.initial(templates: updatedTemplates);
-    });
+    // Update the template in the API
+    await ref.read(dioProvider).post(
+      '/templates',
+      data: {
+        'id': templateId,
+        'template_name': name,
+        'text': text,
+        'tags': {},
+      },
+    );
+    await _refresh();
   }
 }

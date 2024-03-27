@@ -22,6 +22,7 @@ TemplateManagementState _$TemplateManagementStateFromJson(
 /// @nodoc
 mixin _$TemplateManagementState {
   List<Template> get templates => throw _privateConstructorUsedError;
+  String? get selectedTemplateId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $TemplateManagementStateCopyWith<$Res> {
           $Res Function(TemplateManagementState) then) =
       _$TemplateManagementStateCopyWithImpl<$Res, TemplateManagementState>;
   @useResult
-  $Res call({List<Template> templates});
+  $Res call({List<Template> templates, String? selectedTemplateId});
 }
 
 /// @nodoc
@@ -53,12 +54,17 @@ class _$TemplateManagementStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? templates = null,
+    Object? selectedTemplateId = freezed,
   }) {
     return _then(_value.copyWith(
       templates: null == templates
           ? _value.templates
           : templates // ignore: cast_nullable_to_non_nullable
               as List<Template>,
+      selectedTemplateId: freezed == selectedTemplateId
+          ? _value.selectedTemplateId
+          : selectedTemplateId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -72,7 +78,7 @@ abstract class _$$TemplateManagementStateImplCopyWith<$Res>
       __$$TemplateManagementStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Template> templates});
+  $Res call({List<Template> templates, String? selectedTemplateId});
 }
 
 /// @nodoc
@@ -89,12 +95,17 @@ class __$$TemplateManagementStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? templates = null,
+    Object? selectedTemplateId = freezed,
   }) {
     return _then(_$TemplateManagementStateImpl(
       templates: null == templates
           ? _value._templates
           : templates // ignore: cast_nullable_to_non_nullable
               as List<Template>,
+      selectedTemplateId: freezed == selectedTemplateId
+          ? _value.selectedTemplateId
+          : selectedTemplateId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -102,7 +113,9 @@ class __$$TemplateManagementStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TemplateManagementStateImpl implements _TemplateManagementState {
-  const _$TemplateManagementStateImpl({required final List<Template> templates})
+  const _$TemplateManagementStateImpl(
+      {required final List<Template> templates,
+      required this.selectedTemplateId})
       : _templates = templates;
 
   factory _$TemplateManagementStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -117,8 +130,11 @@ class _$TemplateManagementStateImpl implements _TemplateManagementState {
   }
 
   @override
+  final String? selectedTemplateId;
+
+  @override
   String toString() {
-    return 'TemplateManagementState(templates: $templates)';
+    return 'TemplateManagementState(templates: $templates, selectedTemplateId: $selectedTemplateId)';
   }
 
   @override
@@ -127,13 +143,15 @@ class _$TemplateManagementStateImpl implements _TemplateManagementState {
         (other.runtimeType == runtimeType &&
             other is _$TemplateManagementStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._templates, _templates));
+                .equals(other._templates, _templates) &&
+            (identical(other.selectedTemplateId, selectedTemplateId) ||
+                other.selectedTemplateId == selectedTemplateId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_templates));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_templates), selectedTemplateId);
 
   @JsonKey(ignore: true)
   @override
@@ -152,7 +170,8 @@ class _$TemplateManagementStateImpl implements _TemplateManagementState {
 
 abstract class _TemplateManagementState implements TemplateManagementState {
   const factory _TemplateManagementState(
-          {required final List<Template> templates}) =
+          {required final List<Template> templates,
+          required final String? selectedTemplateId}) =
       _$TemplateManagementStateImpl;
 
   factory _TemplateManagementState.fromJson(Map<String, dynamic> json) =
@@ -160,6 +179,8 @@ abstract class _TemplateManagementState implements TemplateManagementState {
 
   @override
   List<Template> get templates;
+  @override
+  String? get selectedTemplateId;
   @override
   @JsonKey(ignore: true)
   _$$TemplateManagementStateImplCopyWith<_$TemplateManagementStateImpl>

@@ -40,13 +40,13 @@ class ChatStateNotifier extends _$ChatStateNotifier {
   Future<Map<String, dynamic>> _fetchCompletion(String prompt, int maxTokens) async {
     try {
       var res = await ref.read(dioProvider).get(
-        '/inferencecog',
+        '/chat',
         queryParameters: {
           'query': prompt,
-          'collectionName': ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
+          'collectionName': "esta-raw-text-storage-dev",
+          // ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
           if (ref.read(ragSettingsNotifierProvider).value?.sessionId != null)
             'sessionId': ref.read(ragSettingsNotifierProvider).value!.sessionId,
-          'source': ref.read(ragSettingsNotifierProvider).value?.sourceType.toString().split('.').last,
         },
       );
       return res.data as Map<String, dynamic>;

@@ -12,10 +12,12 @@ _$TemplateManagementStateImpl _$$TemplateManagementStateImplFromJson(
       templates: (json['templates'] as List<dynamic>)
           .map((e) => Template.fromJson(e as Map<String, dynamic>))
           .toList(),
+      selectedTemplateId: json['selectedTemplateId'] as String?,
     );
 
 Map<String, dynamic> _$$TemplateManagementStateImplToJson(
         _$TemplateManagementStateImpl instance) =>
     <String, dynamic>{
       'templates': instance.templates,
+      'selectedTemplateId': instance.selectedTemplateId,
     };

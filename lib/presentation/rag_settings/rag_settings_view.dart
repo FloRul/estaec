@@ -1,5 +1,4 @@
 import 'package:estaec/presentation/common/elevated_card.dart';
-import 'package:estaec/presentation/rag_settings/collection_dropdown.dart';
 import 'package:estaec/presentation/rag_settings/inference_settings.dart';
 import 'package:estaec/presentation/rag_settings/session_settings.dart';
 import 'package:estaec/presentation/rag_settings/template_editor.dart';
@@ -19,10 +18,7 @@ class RagSettingsView extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 3,
-              child: TemplateSettings(),
-            ),
+            Expanded(flex: 3, child: TemplateSettings()),
             const SizedBox(height: 20),
             const Expanded(child: SessionSetting()),
             const SizedBox(height: 20),

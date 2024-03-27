@@ -24,7 +24,7 @@ class TemplateSettings extends ConsumerWidget {
                     'Éditeur de prompt',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  TemplatesView(navigatorKey: _navigatorKey),
+                  TemplatesListView(navigatorKey: _navigatorKey),
                   ElevatedButton(
                     onPressed: () {
                       // Open create template dialog
@@ -51,15 +51,24 @@ class TemplateSettings extends ConsumerWidget {
   }
 }
 
-class TemplatesView extends ConsumerWidget {
-  const TemplatesView({super.key, required this.navigatorKey});
-
+class TemplatesListView extends ConsumerStatefulWidget {
+  const TemplatesListView({
+    super.key,
+    required this.navigatorKey,
+  });
   final GlobalKey<NavigatorState> navigatorKey;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _TemplatesListViewState();
+}
+
+class _TemplatesListViewState extends ConsumerState<TemplatesListView> {
+  @override
+  Widget build(BuildContext context) {
     final templates = ref.watch(templatesStateNotifierProvider);
     var notifier = ref.read(templatesStateNotifierProvider.notifier);
+
+    int selectedTemplateIndex = 0;
 
     return SizedBox(
       height: 300,
@@ -74,7 +83,16 @@ class TemplatesView extends ConsumerWidget {
           itemBuilder: (context, index) {
             final template = data.templates[index];
             return ListTile(
-              title: Text(template.name),
+              leading: Radio(
+                value: index,
+                groupValue: selectedTemplateIndex,
+                onChanged: (value) {
+                  setState(() {
+                    selectedTemplateIndex = value!;
+                  });
+                },
+              ),
+              title: Text(template.templateName),
               subtitle: Text(template.text),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -83,11 +101,11 @@ class TemplatesView extends ConsumerWidget {
                     icon: const Icon(Icons.edit),
                     onPressed: () {
                       // Open template editor dialog
-                      navigatorKey.currentState!.push(
+                      widget.navigatorKey.currentState!.push(
                         MaterialPageRoute(
                           builder: (context) => EditTemplate(
                             template: template,
-                            navigatorKey: navigatorKey,
+                            navigatorKey: widget.navigatorKey,
                           ),
                         ),
                       );
@@ -119,7 +137,7 @@ class EditTemplate extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    var nameController = useTextEditingController(text: template?.name);
+    var nameController = useTextEditingController(text: template?.templateName);
     var textController = useTextEditingController(text: template?.text);
     var formKey = useMemoized(() => GlobalKey<FormState>());
     return Scaffold(
@@ -162,10 +180,20 @@ class EditTemplate extends HookConsumerWidget {
                   if (!formKey.currentState!.validate()) {
                     return;
                   }
-                  // Create the template
-                  await ref
-                      .read(templatesStateNotifierProvider.notifier)
-                      .createTemplate(nameController.text, textController.text);
+                  // Create or update the template
+                  try {
+                    if (template == null) {
+                      await ref
+                          .read(templatesStateNotifierProvider.notifier)
+                          .createTemplate(nameController.text, textController.text);
+                    } else {
+                      await ref
+                          .read(templatesStateNotifierProvider.notifier)
+                          .updateTemplate(template!.id, nameController.text, textController.text);
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Une erreur est survenue: $e')));
+                  }
                   navigatorKey.currentState!.pop();
                 },
                 child: Text(template == null ? 'Créer' : 'Modifier'),

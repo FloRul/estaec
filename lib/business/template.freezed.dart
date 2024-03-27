@@ -22,7 +22,8 @@ Template _$TemplateFromJson(Map<String, dynamic> json) {
 mixin _$Template {
   String get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'template_name')
+  String get templateName => throw _privateConstructorUsedError;
   Map<String, String> get tags => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,11 @@ abstract class $TemplateCopyWith<$Res> {
   factory $TemplateCopyWith(Template value, $Res Function(Template) then) =
       _$TemplateCopyWithImpl<$Res, Template>;
   @useResult
-  $Res call({String id, String text, String name, Map<String, String> tags});
+  $Res call(
+      {String id,
+      String text,
+      @JsonKey(name: 'template_name') String templateName,
+      Map<String, String> tags});
 }
 
 /// @nodoc
@@ -54,7 +59,7 @@ class _$TemplateCopyWithImpl<$Res, $Val extends Template>
   $Res call({
     Object? id = null,
     Object? text = null,
-    Object? name = null,
+    Object? templateName = null,
     Object? tags = null,
   }) {
     return _then(_value.copyWith(
@@ -66,9 +71,9 @@ class _$TemplateCopyWithImpl<$Res, $Val extends Template>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      templateName: null == templateName
+          ? _value.templateName
+          : templateName // ignore: cast_nullable_to_non_nullable
               as String,
       tags: null == tags
           ? _value.tags
@@ -86,7 +91,11 @@ abstract class _$$TemplateImplCopyWith<$Res>
       __$$TemplateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String text, String name, Map<String, String> tags});
+  $Res call(
+      {String id,
+      String text,
+      @JsonKey(name: 'template_name') String templateName,
+      Map<String, String> tags});
 }
 
 /// @nodoc
@@ -102,7 +111,7 @@ class __$$TemplateImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? text = null,
-    Object? name = null,
+    Object? templateName = null,
     Object? tags = null,
   }) {
     return _then(_$TemplateImpl(
@@ -114,9 +123,9 @@ class __$$TemplateImplCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      templateName: null == templateName
+          ? _value.templateName
+          : templateName // ignore: cast_nullable_to_non_nullable
               as String,
       tags: null == tags
           ? _value._tags
@@ -132,7 +141,7 @@ class _$TemplateImpl implements _Template {
   const _$TemplateImpl(
       {required this.id,
       required this.text,
-      required this.name,
+      @JsonKey(name: 'template_name') required this.templateName,
       required final Map<String, String> tags})
       : _tags = tags;
 
@@ -144,7 +153,8 @@ class _$TemplateImpl implements _Template {
   @override
   final String text;
   @override
-  final String name;
+  @JsonKey(name: 'template_name')
+  final String templateName;
   final Map<String, String> _tags;
   @override
   Map<String, String> get tags {
@@ -155,7 +165,7 @@ class _$TemplateImpl implements _Template {
 
   @override
   String toString() {
-    return 'Template(id: $id, text: $text, name: $name, tags: $tags)';
+    return 'Template(id: $id, text: $text, templateName: $templateName, tags: $tags)';
   }
 
   @override
@@ -165,14 +175,15 @@ class _$TemplateImpl implements _Template {
             other is _$TemplateImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.templateName, templateName) ||
+                other.templateName == templateName) &&
             const DeepCollectionEquality().equals(other._tags, _tags));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, text, name, const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(runtimeType, id, text, templateName,
+      const DeepCollectionEquality().hash(_tags));
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +203,7 @@ abstract class _Template implements Template {
   const factory _Template(
       {required final String id,
       required final String text,
-      required final String name,
+      @JsonKey(name: 'template_name') required final String templateName,
       required final Map<String, String> tags}) = _$TemplateImpl;
 
   factory _Template.fromJson(Map<String, dynamic> json) =
@@ -203,7 +214,8 @@ abstract class _Template implements Template {
   @override
   String get text;
   @override
-  String get name;
+  @JsonKey(name: 'template_name')
+  String get templateName;
   @override
   Map<String, String> get tags;
   @override
