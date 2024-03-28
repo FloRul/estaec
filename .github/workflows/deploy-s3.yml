@@ -39,7 +39,7 @@ jobs:
           # Navigate to the assets directory
           cd assets
           # Replace REPLACE_ME with the actual API_URL value in the dotenv file
-          sed -i 's/REPLACE_ME/'"$API_URL"'/' .env
+          echo "API_URL=$API_URL" >> dotenv
       - name: Build Web App
         run: flutter build web --web-renderer html --release
       - name: Modify Index HTML
