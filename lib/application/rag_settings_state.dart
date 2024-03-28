@@ -16,6 +16,7 @@ class RagSettingsState with _$RagSettingsState {
     String? sessionId,
     SourceType? sourceType,
   }) = _RagSettingsState;
+  
   factory RagSettingsState.initial({
     List<String>? availableCollections,
   }) =>

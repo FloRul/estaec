@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:estaec/application/chat_messages_state.dart';
 import 'package:estaec/application/dio_provider.dart';
 import 'package:estaec/application/rag_settings_notifier.dart';
+import 'package:estaec/application/templates_state_notifier.dart';
 import 'package:estaec/business/completion.dart';
 import 'package:estaec/business/document.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -33,21 +34,19 @@ class ChatStateNotifier extends _$ChatStateNotifier {
     ]));
     await _completion(
       (message as types.TextMessage).text,
-      500,
     );
   }
 
-  Future<Map<String, dynamic>> _fetchCompletion(String prompt, int maxTokens) async {
+  Future<Map<String, dynamic>> _postCompletion(String prompt) async {
     try {
-      var res = await ref.read(dioProvider).get(
-        '/inferencecog',
-        queryParameters: {
-          'query': prompt,
-          'collectionName': ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
-          if (ref.read(ragSettingsNotifierProvider).value?.sessionId != null)
-            'sessionId': ref.read(ragSettingsNotifierProvider).value!.sessionId,
-          'source': ref.read(ragSettingsNotifierProvider).value?.sourceType.toString().split('.').last,
-        },
+      var res = await ref.read(dioProvider).post(
+        '/chat',
+        data: {
+          'message': prompt,
+          'collection_name': "esta-raw-text-storage-dev",
+          'template_id': ref.watch(templatesStateNotifierProvider).value?.selectedTemplateId,
+          // ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
+          },
       );
       return res.data as Map<String, dynamic>;
     } on DioException catch (e) {
@@ -55,10 +54,10 @@ class ChatStateNotifier extends _$ChatStateNotifier {
     }
   }
 
-  Future<void> _completion(String prompt, int maxTokens) async {
+  Future<void> _completion(String message) async {
     try {
       state = state.copyWith(isLoading: true);
-      var completionRequest = await _fetchCompletion(prompt, maxTokens);
+      var completionRequest = await _postCompletion(message);
       var completion = Completion(
         text: completionRequest['completion'],
         documents: jsonDecode(completionRequest['docs'])
