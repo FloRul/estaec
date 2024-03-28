@@ -34,7 +34,7 @@ class TemplateSettings extends ConsumerWidget {
                         ),
                       );
                     },
-                    child: const Text('Éditer un prompt'),
+                    child: const Text('Créer un prompt'),
                   ),
                 ],
               );
@@ -142,7 +142,7 @@ class EditTemplate extends HookConsumerWidget {
     var formKey = useMemoized(() => GlobalKey<FormState>());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Créer un nouveau prompt'),
+        title: Text(template == null ? 'Créer un nouveau prompt' : 'Modifier le prompt'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -150,30 +150,27 @@ class EditTemplate extends HookConsumerWidget {
           key: formKey,
           child: Column(
             children: [
-              Expanded(
-                child: TextFormField(
-                  validator: (value) => value!.isEmpty ? 'Ce champ est obligatoire' : null,
-                  controller: nameController,
-                  decoration: const InputDecoration(labelText: 'Nom'),
-                ),
+              TextFormField(
+                validator: (value) => value!.isEmpty ? 'Ce champ est obligatoire' : null,
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Nom'),
               ),
-              Expanded(
-                flex: 3,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Ce champ est obligatoire';
-                    }
-                    if (!value.contains(RegExp(r'{{ *documents *}}'))) {
-                      return 'Le texte doit contenir le mot : "{{ documents }}"';
-                    }
-                    return null;
-                  },
-                  controller: textController,
-                  decoration: const InputDecoration(labelText: 'Texte'),
-                  maxLines: 5,
-                ),
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Ce champ est obligatoire';
+                  }
+                  if (!value.contains(RegExp(r'{{ *documents *}}'))) {
+                    return 'Le texte doit contenir le mot : "{{ documents }}"';
+                  }
+                  return null;
+                },
+                controller: textController,
+                decoration: const InputDecoration(labelText: 'Texte'),
+                minLines: 5,
+                maxLines: 20,
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
                   // Validate the form
