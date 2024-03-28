@@ -144,57 +144,59 @@ class EditTemplate extends HookConsumerWidget {
       appBar: AppBar(
         title: Text(template == null ? 'Créer un nouveau prompt' : 'Modifier le prompt'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                validator: (value) => value!.isEmpty ? 'Ce champ est obligatoire' : null,
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Nom'),
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Ce champ est obligatoire';
-                  }
-                  if (!value.contains(RegExp(r'{{ *documents *}}'))) {
-                    return 'Le texte doit contenir le mot : "{{ documents }}"';
-                  }
-                  return null;
-                },
-                controller: textController,
-                decoration: const InputDecoration(labelText: 'Texte'),
-                minLines: 5,
-                maxLines: 20,
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () async {
-                  // Validate the form
-                  if (!formKey.currentState!.validate()) {
-                    return;
-                  }
-                  // Create or update the template
-                  try {
-                    if (template == null) {
-                      await ref
-                          .read(templatesStateNotifierProvider.notifier)
-                          .createTemplate(nameController.text, textController.text);
-                    } else {
-                      await ref.read(templatesStateNotifierProvider.notifier).updateTemplate(
-                          template!.id, nameController.text, textController.text, template!.creationDate!);
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  validator: (value) => value!.isEmpty ? 'Ce champ est obligatoire' : null,
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Nom'),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Ce champ est obligatoire';
                     }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Une erreur est survenue: $e')));
-                  }
-                  navigatorKey.currentState!.pop();
-                },
-                child: Text(template == null ? 'Créer' : 'Modifier'),
-              ),
-            ],
+                    if (!value.contains(RegExp(r'{{ *documents *}}'))) {
+                      return 'Le texte doit contenir le mot : "{{ documents }}"';
+                    }
+                    return null;
+                  },
+                  controller: textController,
+                  decoration: const InputDecoration(labelText: 'Texte'),
+                  minLines: 5,
+                  maxLines: 20,
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () async {
+                    // Validate the form
+                    if (!formKey.currentState!.validate()) {
+                      return;
+                    }
+                    // Create or update the template
+                    try {
+                      if (template == null) {
+                        await ref
+                            .read(templatesStateNotifierProvider.notifier)
+                            .createTemplate(nameController.text, textController.text);
+                      } else {
+                        await ref.read(templatesStateNotifierProvider.notifier).updateTemplate(
+                            template!.id, nameController.text, textController.text, template!.creationDate!);
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Une erreur est survenue: $e')));
+                    }
+                    navigatorKey.currentState!.pop();
+                  },
+                  child: Text(template == null ? 'Créer' : 'Modifier'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
