@@ -45,7 +45,7 @@ jobs:
       - name: Modify Index HTML
         run: |
           # Navigate to the directory containing the index.html file
-          cd build/web/assets/assets
+          cd build/web
           # Replace <base href="/"> with <base href="./">
           sed -i 's/<base href="\/">/<base href=".\/">/' index.html
       - name: Deploy to S3
