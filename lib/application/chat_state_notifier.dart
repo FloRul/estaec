@@ -37,18 +37,16 @@ class ChatStateNotifier extends _$ChatStateNotifier {
     );
   }
 
-  Future<Map<String, dynamic>> _fetchCompletion(String prompt) async {
+  Future<Map<String, dynamic>> _postCompletion(String prompt) async {
     try {
       var res = await ref.read(dioProvider).post(
         '/chat',
         data: {
-          'query': prompt,
-          'collectionName': "esta-raw-text-storage-dev",
+          'message': prompt,
+          'collection_name': "esta-raw-text-storage-dev",
           'template_id': ref.watch(templatesStateNotifierProvider).value?.selectedTemplateId,
           // ref.read(ragSettingsNotifierProvider).value?.collectionName ?? '',
-          if (ref.read(ragSettingsNotifierProvider).value?.sessionId != null)
-            'sessionId': ref.read(ragSettingsNotifierProvider).value!.sessionId,
-        },
+          },
       );
       return res.data as Map<String, dynamic>;
     } on DioException catch (e) {
@@ -59,7 +57,7 @@ class ChatStateNotifier extends _$ChatStateNotifier {
   Future<void> _completion(String message) async {
     try {
       state = state.copyWith(isLoading: true);
-      var completionRequest = await _fetchCompletion(message);
+      var completionRequest = await _postCompletion(message);
       var completion = Completion(
         text: completionRequest['completion'],
         documents: jsonDecode(completionRequest['docs'])
