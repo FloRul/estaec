@@ -13,6 +13,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      
       - name: Terraform Init
         id: init
         run: |
@@ -26,6 +27,7 @@ jobs:
           terraform apply -auto-approve -no-color -var="environment=${GITHUB_REF##*/}" | tee output.txt
           BUCKET_NAME=$(cat output.txt | grep -oP '(?<=bucket = ).*')
           echo "DEPLOYMENT_BUCKET=$BUCKET_NAME" >> $GITHUB_ENV
+      
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -36,16 +38,14 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
         run: |
-          # Navigate to the assets directory
-          cd assets
           # Replace REPLACE_ME with the actual API_URL value in the dotenv file
-          echo "API_URL=$API_URL" >> dotenv
+          echo "API_URL=$API_URL" >> .env
       - name: Build Web App
         run: flutter build web --web-renderer html --release
       - name: Modify Index HTML
         run: |
           # Navigate to the directory containing the index.html file
-          cd build/web
+          cd build/web/assets/assets
           # Replace <base href="/"> with <base href="./">
           sed -i 's/<base href="\/">/<base href=".\/">/' index.html
       - name: Deploy to S3
