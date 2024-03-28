@@ -6,12 +6,14 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:estaec/amplifyconfiguration.dart';
 import 'package:estaec/presentation/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureAmplify();
+  await dotenv.load(fileName: 'dotenv');
   runApp(const ProviderScope(child: MyApp()));
 }
 
