@@ -32,6 +32,14 @@ jobs:
       - run: flutter --version
       - name: Install Dependencies
         run: flutter pub get
+      - name: Update dotenv file
+        env:
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          # Navigate to the assets directory
+          cd assets
+          # Replace REPLACE_ME with the actual API_URL value in the dotenv file
+          sed -i 's/REPLACE_ME/'"$API_URL"'/' .env
       - name: Build Web App
         run: flutter build web --web-renderer html --release
       - name: Modify Index HTML
