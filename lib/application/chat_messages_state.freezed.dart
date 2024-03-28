@@ -21,12 +21,14 @@ mixin _$ChatMessagesState {
   bool get hasError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ChatMessagesStateCopyWith<ChatMessagesState> get copyWith => throw _privateConstructorUsedError;
+  $ChatMessagesStateCopyWith<ChatMessagesState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ChatMessagesStateCopyWith<$Res> {
-  factory $ChatMessagesStateCopyWith(ChatMessagesState value, $Res Function(ChatMessagesState) then) =
+  factory $ChatMessagesStateCopyWith(
+          ChatMessagesState value, $Res Function(ChatMessagesState) then) =
       _$ChatMessagesStateCopyWithImpl<$Res, ChatMessagesState>;
   @useResult
   $Res call({List<types.Message> messages, bool isLoading, bool hasError});
@@ -67,8 +69,10 @@ class _$ChatMessagesStateCopyWithImpl<$Res, $Val extends ChatMessagesState>
 }
 
 /// @nodoc
-abstract class _$$ChatMessagesStateImplCopyWith<$Res> implements $ChatMessagesStateCopyWith<$Res> {
-  factory _$$ChatMessagesStateImplCopyWith(_$ChatMessagesStateImpl value, $Res Function(_$ChatMessagesStateImpl) then) =
+abstract class _$$ChatMessagesStateImplCopyWith<$Res>
+    implements $ChatMessagesStateCopyWith<$Res> {
+  factory _$$ChatMessagesStateImplCopyWith(_$ChatMessagesStateImpl value,
+          $Res Function(_$ChatMessagesStateImpl) then) =
       __$$ChatMessagesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -76,9 +80,11 @@ abstract class _$$ChatMessagesStateImplCopyWith<$Res> implements $ChatMessagesSt
 }
 
 /// @nodoc
-class __$$ChatMessagesStateImplCopyWithImpl<$Res> extends _$ChatMessagesStateCopyWithImpl<$Res, _$ChatMessagesStateImpl>
+class __$$ChatMessagesStateImplCopyWithImpl<$Res>
+    extends _$ChatMessagesStateCopyWithImpl<$Res, _$ChatMessagesStateImpl>
     implements _$$ChatMessagesStateImplCopyWith<$Res> {
-  __$$ChatMessagesStateImplCopyWithImpl(_$ChatMessagesStateImpl _value, $Res Function(_$ChatMessagesStateImpl) _then)
+  __$$ChatMessagesStateImplCopyWithImpl(_$ChatMessagesStateImpl _value,
+      $Res Function(_$ChatMessagesStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +115,9 @@ class __$$ChatMessagesStateImplCopyWithImpl<$Res> extends _$ChatMessagesStateCop
 
 class _$ChatMessagesStateImpl implements _ChatMessagesState {
   const _$ChatMessagesStateImpl(
-      {required final List<types.Message> messages, required this.isLoading, required this.hasError})
+      {required final List<types.Message> messages,
+      required this.isLoading,
+      required this.hasError})
       : _messages = messages;
 
   final List<types.Message> _messages;
@@ -136,18 +144,22 @@ class _$ChatMessagesStateImpl implements _ChatMessagesState {
         (other.runtimeType == runtimeType &&
             other is _$ChatMessagesStateImpl &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
-            (identical(other.hasError, hasError) || other.hasError == hasError));
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.hasError, hasError) ||
+                other.hasError == hasError));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages), isLoading, hasError);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_messages), isLoading, hasError);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ChatMessagesStateImplCopyWith<_$ChatMessagesStateImpl> get copyWith =>
-      __$$ChatMessagesStateImplCopyWithImpl<_$ChatMessagesStateImpl>(this, _$identity);
+      __$$ChatMessagesStateImplCopyWithImpl<_$ChatMessagesStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ChatMessagesState implements ChatMessagesState {
@@ -164,5 +176,6 @@ abstract class _ChatMessagesState implements ChatMessagesState {
   bool get hasError;
   @override
   @JsonKey(ignore: true)
-  _$$ChatMessagesStateImplCopyWith<_$ChatMessagesStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ChatMessagesStateImplCopyWith<_$ChatMessagesStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

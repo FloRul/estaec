@@ -22,7 +22,6 @@ RagSettingsState _$RagSettingsStateFromJson(Map<String, dynamic> json) {
 mixin _$RagSettingsState {
   String? get collectionName => throw _privateConstructorUsedError;
   List<String> get availableCollections => throw _privateConstructorUsedError;
-  String? get sessionId => throw _privateConstructorUsedError;
   SourceType? get sourceType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +39,6 @@ abstract class $RagSettingsStateCopyWith<$Res> {
   $Res call(
       {String? collectionName,
       List<String> availableCollections,
-      String? sessionId,
       SourceType? sourceType});
 }
 
@@ -59,7 +57,6 @@ class _$RagSettingsStateCopyWithImpl<$Res, $Val extends RagSettingsState>
   $Res call({
     Object? collectionName = freezed,
     Object? availableCollections = null,
-    Object? sessionId = freezed,
     Object? sourceType = freezed,
   }) {
     return _then(_value.copyWith(
@@ -71,10 +68,6 @@ class _$RagSettingsStateCopyWithImpl<$Res, $Val extends RagSettingsState>
           ? _value.availableCollections
           : availableCollections // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      sessionId: freezed == sessionId
-          ? _value.sessionId
-          : sessionId // ignore: cast_nullable_to_non_nullable
-              as String?,
       sourceType: freezed == sourceType
           ? _value.sourceType
           : sourceType // ignore: cast_nullable_to_non_nullable
@@ -94,7 +87,6 @@ abstract class _$$RagSettingsStateImplCopyWith<$Res>
   $Res call(
       {String? collectionName,
       List<String> availableCollections,
-      String? sessionId,
       SourceType? sourceType});
 }
 
@@ -111,7 +103,6 @@ class __$$RagSettingsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? collectionName = freezed,
     Object? availableCollections = null,
-    Object? sessionId = freezed,
     Object? sourceType = freezed,
   }) {
     return _then(_$RagSettingsStateImpl(
@@ -123,10 +114,6 @@ class __$$RagSettingsStateImplCopyWithImpl<$Res>
           ? _value._availableCollections
           : availableCollections // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      sessionId: freezed == sessionId
-          ? _value.sessionId
-          : sessionId // ignore: cast_nullable_to_non_nullable
-              as String?,
       sourceType: freezed == sourceType
           ? _value.sourceType
           : sourceType // ignore: cast_nullable_to_non_nullable
@@ -141,7 +128,6 @@ class _$RagSettingsStateImpl implements _RagSettingsState {
   const _$RagSettingsStateImpl(
       {this.collectionName,
       required final List<String> availableCollections,
-      this.sessionId,
       this.sourceType})
       : _availableCollections = availableCollections;
 
@@ -160,13 +146,11 @@ class _$RagSettingsStateImpl implements _RagSettingsState {
   }
 
   @override
-  final String? sessionId;
-  @override
   final SourceType? sourceType;
 
   @override
   String toString() {
-    return 'RagSettingsState(collectionName: $collectionName, availableCollections: $availableCollections, sessionId: $sessionId, sourceType: $sourceType)';
+    return 'RagSettingsState(collectionName: $collectionName, availableCollections: $availableCollections, sourceType: $sourceType)';
   }
 
   @override
@@ -178,20 +162,14 @@ class _$RagSettingsStateImpl implements _RagSettingsState {
                 other.collectionName == collectionName) &&
             const DeepCollectionEquality()
                 .equals(other._availableCollections, _availableCollections) &&
-            (identical(other.sessionId, sessionId) ||
-                other.sessionId == sessionId) &&
             (identical(other.sourceType, sourceType) ||
                 other.sourceType == sourceType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      collectionName,
-      const DeepCollectionEquality().hash(_availableCollections),
-      sessionId,
-      sourceType);
+  int get hashCode => Object.hash(runtimeType, collectionName,
+      const DeepCollectionEquality().hash(_availableCollections), sourceType);
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +190,6 @@ abstract class _RagSettingsState implements RagSettingsState {
   const factory _RagSettingsState(
       {final String? collectionName,
       required final List<String> availableCollections,
-      final String? sessionId,
       final SourceType? sourceType}) = _$RagSettingsStateImpl;
 
   factory _RagSettingsState.fromJson(Map<String, dynamic> json) =
@@ -222,8 +199,6 @@ abstract class _RagSettingsState implements RagSettingsState {
   String? get collectionName;
   @override
   List<String> get availableCollections;
-  @override
-  String? get sessionId;
   @override
   SourceType? get sourceType;
   @override

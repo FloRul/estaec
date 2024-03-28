@@ -13,7 +13,6 @@ _$RagSettingsStateImpl _$$RagSettingsStateImplFromJson(
       availableCollections: (json['availableCollections'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      sessionId: json['sessionId'] as String?,
       sourceType: $enumDecodeNullable(_$SourceTypeEnumMap, json['sourceType']),
     );
 
@@ -22,12 +21,9 @@ Map<String, dynamic> _$$RagSettingsStateImplToJson(
     <String, dynamic>{
       'collectionName': instance.collectionName,
       'availableCollections': instance.availableCollections,
-      'sessionId': instance.sessionId,
       'sourceType': _$SourceTypeEnumMap[instance.sourceType],
     };
 
 const _$SourceTypeEnumMap = {
-  SourceType.email: 'email',
   SourceType.chat: 'chat',
-  SourceType.call: 'call',
 };

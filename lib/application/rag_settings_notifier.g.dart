@@ -7,7 +7,7 @@ part of 'rag_settings_notifier.dart';
 // **************************************************************************
 
 String _$ragSettingsNotifierHash() =>
-    r'0dca3a86260b6262477b893a3c4d914f0280e817';
+    r'b1bf108c7b1ac06068e1eeef481b10877fbf7fe6';
 
 /// See also [RagSettingsNotifier].
 @ProviderFor(RagSettingsNotifier)
